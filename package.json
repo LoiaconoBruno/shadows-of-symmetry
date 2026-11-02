@@ -1,0 +1,10 @@
+{
+  "name": "simetria-n-mas-1",
+  "version": "0.1.0",
+  "description": "Simetrías discretas como sombras de simetrías continuas en una dimensión más",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test"
+  }
+}

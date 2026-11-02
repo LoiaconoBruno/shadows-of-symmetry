@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simetría N+1</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .dos { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 860px) { .dos { grid-template-columns: 1fr; } }
+    .cadena { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 10px; }
+    .cadena span { height: 18px; border-radius: 3px; font: 11px var(--mono); color: var(--accent-text); display: inline-flex; align-items: center; justify-content: center; }
+    .cadena .L { background: var(--s1); }
+    .cadena .S { background: var(--s2); }
+    .tesis { font-size: 1.05rem; margin: 6px 0 0; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <h1>Simetría vista desde la dimensión N+1</h1>
+    <p class="tesis">Lo que en una dimensión se repite "a saltos" puede ser la sombra de algo perfectamente suave en una dimensión más.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Hélice → onda</h2>
+      <p class="small muted" style="margin-top:0">Una hélice no cambia si la girás cualquier ángulo y a la vez la corrés un poco a lo largo de su eje: es una simetría continua. Vista de costado, su sombra es una onda que solo se repite cada vuelta completa: una simetría discreta. Es la fórmula de Euler, e<sup>iθ</sup> = cos θ + i sen θ, dibujada.</p>
+      <div class="row">
+        <button id="girar" class="primary">Girar la hélice</button>
+        <label for="alfa" style="margin:0">Ángulo de giro: <b id="v-alfa"></b></label>
+        <input type="range" id="alfa" min="0" max="360" step="1" value="0" style="max-width:260px">
+      </div>
+      <div class="dos" style="margin-top:12px">
+        <div><canvas id="c-helice" aria-label="Hélice en 3D"></canvas><p class="small muted">En 3D (N+1): un giro continuo.</p></div>
+        <div><canvas id="c-onda" aria-label="Sombra de costado de la hélice: una onda"></canvas><p class="small muted">Su sombra en 2D (N): una onda. Girar la hélice solo corre la onda.</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Red cuadrada (2D) → cadena (1D): corte y proyección</h2>
+      <p class="small muted" style="margin-top:0">Se corta una franja de la red cuadrada a lo largo de una recta y se proyectan sus puntos sobre la recta. Salen pasos largos (L) y cortos (S). Si la pendiente es racional, la cadena se repite; si es irracional, <b>nunca se repite</b>, aunque está perfectamente ordenada: es un cuasicristal en una dimensión. Con pendiente 1/φ sale la cadena de Fibonacci.</p>
+      <div class="layout">
+        <div>
+          <label for="pend">Pendiente de la recta</label>
+          <select id="pend">
+            <option value="fib">1/φ ≈ 0,618 (Fibonacci)</option>
+            <option value="raiz2">√2 − 1 ≈ 0,414</option>
+            <option value="mitad">1/2</option>
+            <option value="dostercios">2/3</option>
+            <option value="tresquintos">3/5 (casi 1/φ, pero racional)</option>
+          </select>
+          <div class="stats" style="margin-top:12px" aria-live="polite">
+            <div class="stat"><div class="k">Pasos largos (L)</div><div class="v" id="s-L">—</div></div>
+            <div class="stat"><div class="k">Pasos cortos (S)</div><div class="v" id="s-S">—</div></div>
+            <div class="stat"><div class="k">L / S</div><div class="v" id="s-ratio">—</div></div>
+            <div class="stat"><div class="k">¿Se repite?</div><div class="v" id="s-per">—</div></div>
+          </div>
+        </div>
+        <div style="min-width:0">
+          <canvas id="c-red" aria-label="Red cuadrada con la franja de corte y los puntos proyectados sobre la recta"></canvas>
+          <div class="cadena" id="cadena" aria-label="Cadena de pasos largos y cortos"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. Un reflejo es un giro en una dimensión más</h2>
+      <p class="small muted" style="margin-top:0">Adentro del plano, ningún movimiento convierte una F en su imagen en el espejo. Levantándola por la tercera dimensión y girándola 180°, sí. Kant (1768) notaba que una mano izquierda y una derecha no se pueden superponer; Möbius (1827) observó que, girándolas por una cuarta dimensión, se podría.</p>
+      <label for="theta">Giro por la tercera dimensión <span class="val" id="v-theta"></span></label>
+      <input type="range" id="theta" min="0" max="180" step="1" value="0">
+      <div class="dos" style="margin-top:12px">
+        <div><canvas id="c-f3d" aria-label="La letra F girando en 3D"></canvas><p class="small muted">En 3D.</p></div>
+        <div><canvas id="c-f2d" aria-label="Lo que se ve de la F dentro del plano"></canvas><p class="small muted" id="txt-f"></p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Ideas conocidas en matemática y física; el aporte está en juntarlas y mostrarlas. Kaluza-Klein, el ejemplo más famoso en física, no es física confirmada.</footer>
+
+  <script src="src/grafico.js"></script>
+  <script src="src/simetria.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
