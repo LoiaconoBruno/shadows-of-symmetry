@@ -1,10 +1,16 @@
 {
-  "name": "simetria-n-mas-1",
+  "name": "shadows-of-symmetry",
   "version": "0.1.0",
-  "description": "Simetrías discretas como sombras de simetrías continuas en una dimensión más",
+  "description": "Simetrías discretas como sombras de simetrías continuas: hélice, cuasicristal de Fibonacci y reflejos.",
   "private": true,
   "license": "MIT",
   "scripts": {
     "test": "node --test"
-  }
+  },
+  "homepage": "https://loiaconobruno.github.io/shadows-of-symmetry/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoiaconoBruno/shadows-of-symmetry.git"
+  },
+  "author": "Bruno Loiacono"
 }

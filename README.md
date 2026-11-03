@@ -1,4 +1,19 @@
-# Simetría vista desde la dimensión N+1
+<div align="center">
+
+# Shadows of Symmetry
+
+**Simetría vista desde la dimensión N+1.** Lo que en una dimensión se repite a saltos puede ser la sombra de algo perfectamente suave en una dimensión más.
+
+[**▶ Probala en vivo**](https://loiaconobruno.github.io/shadows-of-symmetry/) · [Cómo funciona](#cómo-funciona) · [Limitaciones](#limitaciones)
+
+[![Tests](https://github.com/LoiaconoBruno/shadows-of-symmetry/actions/workflows/tests.yml/badge.svg)](https://github.com/LoiaconoBruno/shadows-of-symmetry/actions/workflows/tests.yml)
+![Dependencias: 0](https://img.shields.io/badge/dependencias-0-brightgreen)
+![HTML, CSS y JavaScript](https://img.shields.io/badge/HTML%20%C2%B7%20CSS%20%C2%B7%20JS-sin%20build-f7df1e)
+[![Licencia MIT](https://img.shields.io/badge/licencia-MIT-blue)](LICENSE)
+
+<img src="docs/captura.png" alt="Captura de Shadows of Symmetry" width="800">
+
+</div>
 
 Tres visualizaciones interactivas de una tesis: **lo que en una dimensión se repite "a saltos" puede ser la sombra de algo perfectamente suave en una dimensión más.**
 
@@ -12,11 +27,23 @@ Es una idea que aparece en muchos campos a la vez (señales y Fourier, cuasicris
 
 ## Instalación
 
-No hace falta instalar nada. Es una página estática sin dependencias. Para correr los tests hace falta Node 18 o más nuevo.
+No hace falta instalar nada: **[abrila en el navegador](https://loiaconobruno.github.io/shadows-of-symmetry/)**.
+
+Para usarla sin conexión o modificarla:
+
+```bash
+git clone https://github.com/LoiaconoBruno/shadows-of-symmetry.git
+```
+
+Después abrí `index.html` con doble clic. No hay dependencias ni paso de build. Para correr los tests hace falta Node 18 o más nuevo:
+
+```bash
+npm test
+```
 
 ## Uso
 
-Abrí `index.html` con doble clic.
+Abrí la [demo en vivo](https://loiaconobruno.github.io/shadows-of-symmetry/) o `index.html` con doble clic.
 
 Ejemplo:
 
