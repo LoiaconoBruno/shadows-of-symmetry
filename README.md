@@ -4,7 +4,7 @@
 
 **Simetría vista desde la dimensión N+1.** Lo que en una dimensión se repite a saltos puede ser la sombra de algo perfectamente suave en una dimensión más.
 
-[**▶ Probala en vivo**](https://loiaconobruno.github.io/shadows-of-symmetry/) · [Cómo funciona](#cómo-funciona) · [Limitaciones](#limitaciones)
+[**▶ Probala en vivo**](https://loiaconobruno.github.io/shadows-of-symmetry/) · [**📄 Paper y guía**](https://loiaconobruno.github.io/shadows-of-symmetry/guia.html) · [Cómo funciona](#cómo-funciona) · [Limitaciones](#limitaciones)
 
 [![Tests](https://github.com/LoiaconoBruno/shadows-of-symmetry/actions/workflows/tests.yml/badge.svg)](https://github.com/LoiaconoBruno/shadows-of-symmetry/actions/workflows/tests.yml)
 ![Dependencias: 0](https://img.shields.io/badge/dependencias-0-brightgreen)
@@ -78,6 +78,10 @@ Los tests comprueban, entre otras cosas, que la cadena con pendiente 1/φ es un 
 - Agregar Kaluza-Klein y la pregunta de Noether: si subís a N+1 para volver continua una simetría discreta, ¿aparece una cantidad conservada?
 - Versión 2D → mosaico de Penrose.
 - Armar el índice del paper "Simetrías discretas como sombras de simetrías continuas".
+
+## Paper de uso y guía
+
+[`guia.html`](https://loiaconobruno.github.io/shadows-of-symmetry/guia.html) (fuente en [`docs/guia.md`](docs/guia.md)) tiene un paper de uso paso a paso y una guía de unas 20 páginas sobre la idea de fondo, con citas a los especialistas del tema.
 
 ## Licencia
 
