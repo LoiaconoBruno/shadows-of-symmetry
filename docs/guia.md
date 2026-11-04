@@ -351,7 +351,33 @@ La idea original proponía un paper de síntesis titulado *Simetrías discretas 
 
 El aporte de un paper así no sería un teorema nuevo, sino un mapa: mostrar en un solo lugar que una misma operación conceptual organiza resultados conocidos de cinco áreas. Esa es la limitación honesta que declara el README y, a la vez, el valor de la idea.
 
-### 20. Del modelo al código
+### 20. De muchas baldosas a una sola: la búsqueda del orden sin repetición
+
+La cadena de Fibonacci es el ejemplo más simple de orden sin período. En dos dimensiones, la pregunta de cuántas piezas hacen falta para forzar un orden así tiene una historia de seis décadas que terminó, en 2023, con una sorpresa.
+
+#### 20.1 Wang y el problema del dominó
+
+En 1961, el lógico Hao Wang estudió un problema de apariencia infantil (*Bell System Technical Journal*, 40(1), 1–41): dado un conjunto de cuadrados con los bordes pintados de colores, ¿se puede cubrir el plano infinito colocándolos uno al lado del otro, sin rotarlos, de modo que los bordes que se tocan tengan el mismo color? Wang conjeturó que, si un conjunto de **baldosas de Wang** cubre el plano, siempre lo puede hacer de manera periódica. Si fuera cierto, habría un algoritmo para decidir si un conjunto cubre el plano.
+
+Robert Berger, alumno de Wang, demostró en 1966 que la conjetura era falsa (*Memoirs of the American Mathematical Society*, 66): construyó un conjunto de más de veinte mil baldosas que cubre el plano solo de manera no periódica, y probó que el problema del dominó es **indecidible**, es decir, que no existe ningún algoritmo que lo resuelva en general. El orden sin repetición quedó ligado a uno de los límites fundamentales de la computación.
+
+#### 20.2 Menos baldosas
+
+A partir de ahí comenzó una carrera por reducir el número de piezas. Raphael Robinson encontró en 1971 un conjunto de seis baldosas no periódicas (*Inventiones Mathematicae*, 12, 177–209). Penrose (sección 13.1) bajó el número a dos en 1974. Durante casi cincuenta años, la pregunta de si existía una sola pieza que solo pudiera cubrir el plano de manera no periódica, una "einstein" (por *ein Stein*, "una piedra" en alemán, no por el físico), quedó abierta.
+
+#### 20.3 El sombrero
+
+En 2023, David Smith, un aficionado a los mosaicos de Yorkshire, encontró jugando con un programa de diseño una figura de trece lados, con forma parecida a un sombrero, que parecía cubrir el plano solo de manera no periódica. Con los matemáticos Joseph Samuel Myers, Craig Kaplan y Chaim Goodman-Strauss demostró que lo hacía, en un artículo publicado en 2024 en *Combinatorial Theory* (4(1)) con el título *An aperiodic monotile*. Poco después, el mismo equipo encontró una variante, el "espectro", que lo hace sin necesidad de usar copias espejadas de la pieza.
+
+La demostración, como la de de Bruijn para Penrose, conecta el mosaico con una estructura de dimensión más alta: los mosaicos del sombrero están relacionados con mosaicos jerárquicos que se pueden obtener por sustitución, la misma operación de inflación que genera la palabra de Fibonacci (sección 15.1). El orden sin repetición, una vez más, es la sombra de una regla simple.
+
+### 21. Cuasicristales en la naturaleza
+
+Durante dos décadas, todos los cuasicristales conocidos se habían fabricado en laboratorio, enfriando aleaciones rápidamente. Paul Steinhardt se preguntó si podían existir en la naturaleza, y organizó una búsqueda en colecciones de minerales de museos de todo el mundo, comparando patrones de difracción con los esperados para simetrías prohibidas. En 2009, Luca Bindi, Steinhardt, Nan Yao y Peter Lu informaron en *Science* (324(5932), 1306–1309) el hallazgo de un cuasicristal natural de aluminio, cobre y hierro en una muestra de roca de las montañas Koryak, en Kamchatka, conservada en un museo de Florencia.
+
+El origen de la muestra resultó ser extraterrestre: era parte de un meteorito, y el cuasicristal se había formado, probablemente, en un choque en el sistema solar temprano, hace unos 4500 millones de años. Steinhardt organizó en 2011 una expedición a Kamchatka para encontrar más fragmentos y la contó en *The Second Kind of Impossible* (sección 12.3). Que la naturaleza produzca cuasicristales, sin que nadie los diseñe, refuerza la idea central de la herramienta: el orden no periódico no es una rareza matemática, sino una forma de organización tan natural como la periódica, que aparece cuando las condiciones lo permiten.
+
+### 22. Del modelo al código
 
 | Concepto | Función en `src/simetria.js` | Qué produce en la página |
 |---|---|---|
@@ -372,7 +398,7 @@ S.periodo(r.pasos, 100);            // null (no se repite)
 S.palabraFibonacci(8);              // "LSLLSLSL"
 ```
 
-### 21. Ejercicios
+### 23. Ejercicios
 
 1. Demostrá que, con pendiente p/q, la cadena de corte y proyección tiene período p + q. (Pista: ¿después de cuántos pasos la recta vuelve a pasar por un punto de la red?)
 2. Aplicá la sustitución L → LS, S → L cinco veces empezando en L. Contá L y S en cada paso. ¿A qué tiende el cociente?
@@ -382,7 +408,7 @@ S.palabraFibonacci(8);              // "LSLLSLSL"
 6. Explicá por qué no hay ningún cristal periódico con simetría de orden 5, usando la restricción cristalográfica: si un giro de 72° lleva la red en sí misma, la traza de su matriz en una base de la red tiene que ser entera.
 7. Pensá un ejemplo de tu campo (música, economía, biología) en el que algo que se repite a saltos podría ser la sombra de algo continuo.
 
-### 22. Glosario
+### 24. Glosario
 
 - **Simetría:** transformación que deja un objeto igual.
 - **Simetría continua / discreta:** según si el conjunto de transformaciones forma un continuo (giros de cualquier ángulo) o un conjunto de elementos aislados (giros de 90°).
@@ -395,7 +421,7 @@ S.palabraFibonacci(8);              // "LSLLSLSL"
 - **Paridad:** simetría ante el reflejo espacial.
 - **Sección de Poincaré:** registro de los cruces de una trayectoria continua con una superficie fija.
 
-### 23. Conclusión
+### 25. Conclusión
 
 Tres ejemplos muy distintos (una onda, una cadena de letras y una F espejada) muestran la misma estructura: una simetría discreta en n dimensiones como sombra de una continua en n + 1. La onda es la sombra de un giro, como sabían Euler y Fourier y como confirmaron Cochran, Crick, Vand y Franklin al leer en una sombra de rayos X la hélice del ADN. La cadena de Fibonacci es un corte de una red cuadrada, el caso más simple del método que de Bruijn usó para explicar los mosaicos de Penrose y que hoy describe los cuasicristales de Shechtman. El reflejo es un giro por una dimensión extra, como señaló Möbius respondiendo al acertijo de las manos de Kant.
 
@@ -403,10 +429,12 @@ La herramienta deja abiertos dos pasos: llevar el corte y proyección de 5D a 2D
 
 ## Referencias
 
+- Berger, R. (1966). The undecidability of the domino problem. *Memoirs of the American Mathematical Society*, 66, 1–72.
+- Bindi, L., Steinhardt, P. J., Yao, N., & Lu, P. J. (2009). Natural quasicrystals. *Science*, 324(5932), 1306–1309. https://doi.org/10.1126/science.1170827
 - Bohr, H. (1925). Zur Theorie der fastperiodischen Funktionen I. *Acta Mathematica*, 45, 29–127. https://doi.org/10.1007/BF02395468
 - Bravais, A. (1850). Mémoire sur les systèmes formés par des points distribués régulièrement sur un plan ou dans l'espace. *Journal de l'École Polytechnique*, 19, 1–128.
-- Cochran, W., Crick, F. H. C., & Vand, V. (1952). The structure of synthetic polypeptides. I. The transform of atoms on a helix. *Acta Crystallographica*, 5(5), 581–586. https://doi.org/10.1107/S0365110X52001635
 - de Bruijn, N. G. (1981). Algebraic theory of Penrose's non-periodic tilings of the plane. *Indagationes Mathematicae (Proceedings)*, 84(1), 39–66. https://doi.org/10.1016/1385-7258(81)90016-0
+- Cochran, W., Crick, F. H. C., & Vand, V. (1952). The structure of synthetic polypeptides. I. The transform of atoms on a helix. *Acta Crystallographica*, 5(5), 581–586. https://doi.org/10.1107/S0365110X52001635
 - Douady, S., & Couder, Y. (1992). Phyllotaxis as a physical self-organized growth process. *Physical Review Letters*, 68(13), 2098–2101. https://doi.org/10.1103/PhysRevLett.68.2098
 - Duneau, M., & Katz, A. (1985). Quasiperiodic patterns. *Physical Review Letters*, 54(25), 2688–2691. https://doi.org/10.1103/PhysRevLett.54.2688
 - Euler, L. (1748). *Introductio in analysin infinitorum*. Lausana: Bousquet.
@@ -431,9 +459,12 @@ La herramienta deja abiertos dos pasos: llevar el corte y proyección de 5D a 2D
 - Pauling, L., Corey, R. B., & Branson, H. R. (1951). The structure of proteins: Two hydrogen-bonded helical configurations of the polypeptide chain. *Proceedings of the National Academy of Sciences*, 37(4), 205–211. https://doi.org/10.1073/pnas.37.4.205
 - Penrose, R. (1974). The role of aesthetics in pure and applied mathematical research. *Bulletin of the Institute of Mathematics and its Applications*, 10, 266–271.
 - Poincaré, H. (1892–1899). *Les méthodes nouvelles de la mécanique céleste* (3 vols.). París: Gauthier-Villars.
+- Robinson, R. M. (1971). Undecidability and nonperiodicity for tilings of the plane. *Inventiones Mathematicae*, 12(3), 177–209. https://doi.org/10.1007/BF01418780
 - Shannon, C. E. (1949). Communication in the presence of noise. *Proceedings of the IRE*, 37(1), 10–21. https://doi.org/10.1109/JRPROC.1949.232969
 - Shechtman, D., Blech, I., Gratias, D., & Cahn, J. W. (1984). Metallic phase with long-range orientational order and no translational symmetry. *Physical Review Letters*, 53(20), 1951–1953. https://doi.org/10.1103/PhysRevLett.53.1951
+- Smith, D., Myers, J. S., Kaplan, C. S., & Goodman-Strauss, C. (2024). An aperiodic monotile. *Combinatorial Theory*, 4(1). (Preprint: arXiv:2303.10798.)
 - Steinhardt, P. J. (2019). *The Second Kind of Impossible: The Extraordinary Quest for a New Form of Matter*. Simon & Schuster. ISBN 978-1-4767-2992-2.
+- Wang, H. (1961). Proving theorems by pattern recognition — II. *Bell System Technical Journal*, 40(1), 1–41. https://doi.org/10.1002/j.1538-7305.1961.tb03975.x
 - Watson, J. D., & Crick, F. H. C. (1953). Molecular structure of nucleic acids: A structure for deoxyribose nucleic acid. *Nature*, 171, 737–738. https://doi.org/10.1038/171737a0
 - Weyl, H. (1916). Über die Gleichverteilung von Zahlen mod. Eins. *Mathematische Annalen*, 77, 313–352. https://doi.org/10.1007/BF01475864
 - Weyl, H. (1952). *Symmetry*. Princeton University Press. ISBN 978-0-691-02374-8.
