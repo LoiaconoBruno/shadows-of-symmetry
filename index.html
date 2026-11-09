@@ -1,85 +1,188 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simetría N+1</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .dos { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
-    @media (max-width: 860px) { .dos { grid-template-columns: 1fr; } }
-    .cadena { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 10px; }
-    .cadena span { height: 18px; border-radius: 3px; font: 11px var(--mono); color: var(--accent-text); display: inline-flex; align-items: center; justify-content: center; }
-    .cadena .L { background: var(--s1); }
-    .cadena .S { background: var(--s2); }
-    .tesis { font-size: 1.05rem; margin: 6px 0 0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sombras de la simetría: simetrías discretas como proyecciones, cortes y secciones de simetrías continuas en una dimensión más</title>
+<meta name="description" content="Preprint de Bruno Loiacono (estudiante de Física, UBA): Sombras de la simetría: simetrías discretas como proyecciones, cortes y secciones de simetrías continuas en una dimensión más.">
+<style>
+:root{--bg:#f7f6f2;--surface:#fff;--text:#1d1c1a;--muted:#5b574f;--border:#d9d5cb;--accent:#2a55c9;--accent-text:#fff;--aviso:#fdf3e1;--aviso-borde:#c27a12;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--surface:#1d1d21;--text:#ecebe7;--muted:#a8a59f;--border:#36363c;--accent:#8fb0ff;--accent-text:#0d0d10;--aviso:#2a2216;--aviso-borde:#e0a54a;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:18px/1.65 Georgia,"Iowan Old Style","Times New Roman",serif}
+.wrap{max-width:780px;margin:0 auto;padding:20px 16px 80px}
+.sans{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.aviso{font:600 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--aviso);border:1px solid var(--aviso-borde);border-radius:8px;padding:8px 12px;margin:0 0 18px}
+h1{font-size:2rem;line-height:1.2;margin:8px 0 6px}
+.en{color:var(--muted);font-style:italic;margin:0 0 10px}
+.autor{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--muted);margin:0 0 16px}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;font:15px system-ui,-apple-system,"Segoe UI",sans-serif}
+.boton{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);text-decoration:none}
+.boton.primario{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+.boton:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+a{color:var(--accent)}
+nav.toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;margin:0 0 8px}
+nav.toc ul{margin:6px 0 0;padding:0;list-style:none}
+nav.toc li{margin:2px 0}
+h2{font-size:1.4rem;line-height:1.3;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--border)}
+h3{font-size:1.12rem;margin:28px 0 8px}
+h4{font-size:1rem;margin:22px 0 6px}
+.resumen{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px 18px 8px;margin:16px 0}
+.resumen h2{border:0;margin:12px 0 4px;padding:0;font-size:1.05rem}
+.clave{font-size:.95rem;color:var(--muted)}
+figure{margin:26px 0;padding:0}
+figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--border);border-radius:8px}
+figcaption{font-size:.92rem;color:var(--muted);margin-top:8px;line-height:1.5}
+.desliza{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{border-bottom:2px solid var(--text)}
+.ecuacion{overflow-x:auto;overflow-y:hidden;margin:14px 0}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+blockquote{margin:16px 0;padding:2px 16px;border-left:3px solid var(--border);color:var(--muted)}
+code{font:.9em ui-monospace,"SF Mono",Menlo,monospace;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0 4px}
+ol.refs{padding-left:20px;font-size:.95rem}
+ol.refs li{margin-bottom:8px;overflow-wrap:anywhere}
+footer{margin-top:48px;padding-top:14px;border-top:1px solid var(--border);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--muted)}
+pre{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font:13px/1.5 ui-monospace,"SF Mono",Menlo,monospace}
+@media (max-width:600px){body{font-size:17px}h1{font-size:1.6rem}}
+@media print{.acciones,nav.toc{display:none}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[["$","$"]],displayMath:[["\\[","\\]"]],tags:"ams",processEnvironments:true,processRefs:true,macros:{}},chtml:{scale:1},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 </head>
 <body>
-  <header class="top">
-    <h1>Simetría vista desde la dimensión N+1</h1>
-    <p class="tesis">Lo que en una dimensión se repite "a saltos" puede ser la sombra de algo perfectamente suave en una dimensión más.</p>
-    <p class="guia-link"><a href="guia.html">📄 Paper de uso y guía de la idea →</a></p>
-  </header>
-
-  <main>
-    <section class="card">
-      <h2>1. Hélice → onda</h2>
-      <p class="small muted" style="margin-top:0">Una hélice no cambia si la girás cualquier ángulo y a la vez la corrés un poco a lo largo de su eje: es una simetría continua. Vista de costado, su sombra es una onda que solo se repite cada vuelta completa: una simetría discreta. Es la fórmula de Euler, e<sup>iθ</sup> = cos θ + i sen θ, dibujada.</p>
-      <div class="row">
-        <button id="girar" class="primary">Girar la hélice</button>
-        <label for="alfa" style="margin:0">Ángulo de giro: <b id="v-alfa"></b></label>
-        <input type="range" id="alfa" min="0" max="360" step="1" value="0" style="max-width:260px">
-      </div>
-      <div class="dos" style="margin-top:12px">
-        <div><canvas id="c-helice" aria-label="Hélice en 3D"></canvas><p class="small muted">En 3D (N+1): un giro continuo.</p></div>
-        <div><canvas id="c-onda" aria-label="Sombra de costado de la hélice: una onda"></canvas><p class="small muted">Su sombra en 2D (N): una onda. Girar la hélice solo corre la onda.</p></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>2. Red cuadrada (2D) → cadena (1D): corte y proyección</h2>
-      <p class="small muted" style="margin-top:0">Se corta una franja de la red cuadrada a lo largo de una recta y se proyectan sus puntos sobre la recta. Salen pasos largos (L) y cortos (S). Si la pendiente es racional, la cadena se repite; si es irracional, <b>nunca se repite</b>, aunque está perfectamente ordenada: es un cuasicristal en una dimensión. Con pendiente 1/φ sale la cadena de Fibonacci.</p>
-      <div class="layout">
-        <div>
-          <label for="pend">Pendiente de la recta</label>
-          <select id="pend">
-            <option value="fib">1/φ ≈ 0,618 (Fibonacci)</option>
-            <option value="raiz2">√2 − 1 ≈ 0,414</option>
-            <option value="mitad">1/2</option>
-            <option value="dostercios">2/3</option>
-            <option value="tresquintos">3/5 (casi 1/φ, pero racional)</option>
-          </select>
-          <div class="stats" style="margin-top:12px" aria-live="polite">
-            <div class="stat"><div class="k">Pasos largos (L)</div><div class="v" id="s-L">—</div></div>
-            <div class="stat"><div class="k">Pasos cortos (S)</div><div class="v" id="s-S">—</div></div>
-            <div class="stat"><div class="k">L / S</div><div class="v" id="s-ratio">—</div></div>
-            <div class="stat"><div class="k">¿Se repite?</div><div class="v" id="s-per">—</div></div>
-          </div>
-        </div>
-        <div style="min-width:0">
-          <canvas id="c-red" aria-label="Red cuadrada con la franja de corte y los puntos proyectados sobre la recta"></canvas>
-          <div class="cadena" id="cadena" aria-label="Cadena de pasos largos y cortos"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>3. Un reflejo es un giro en una dimensión más</h2>
-      <p class="small muted" style="margin-top:0">Adentro del plano, ningún movimiento convierte una F en su imagen en el espejo. Levantándola por la tercera dimensión y girándola 180°, sí. Kant (1768) notaba que una mano izquierda y una derecha no se pueden superponer; Möbius (1827) observó que, girándolas por una cuarta dimensión, se podría.</p>
-      <label for="theta">Giro por la tercera dimensión <span class="val" id="v-theta"></span></label>
-      <input type="range" id="theta" min="0" max="180" step="1" value="0">
-      <div class="dos" style="margin-top:12px">
-        <div><canvas id="c-f3d" aria-label="La letra F girando en 3D"></canvas><p class="small muted">En 3D.</p></div>
-        <div><canvas id="c-f2d" aria-label="Lo que se ve de la F dentro del plano"></canvas><p class="small muted" id="txt-f"></p></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>Ideas conocidas en matemática y física; el aporte está en juntarlas y mostrarlas. Kaluza-Klein, el ejemplo más famoso en física, no es física confirmada.</footer>
-
-  <script src="src/grafico.js"></script>
-  <script src="src/simetria.js"></script>
-  <script src="src/app.js"></script>
+<main class="wrap">
+<p class="aviso">Preprint · documento de trabajo sin revisión por pares</p>
+<h1>Sombras de la simetría: simetrías discretas como proyecciones, cortes y secciones de simetrías continuas en una dimensión más</h1>
+<p class="en" lang="en">Shadows of symmetry: discrete symmetries as projections, slices and sections of continuous symmetries in one more dimension</p>
+<p class="autor">Bruno Loiacono · Estudiante de Física, Universidad de Buenos Aires · Noviembre de 2026</p>
+<div class="acciones">
+<a class="boton primario" href="paper/paper.pdf" download>Descargar PDF</a>
+<a class="boton" href="https://github.com/LoiaconoBruno/shadows-of-symmetry">Repositorio</a>
+<a class="boton" href="https://github.com/LoiaconoBruno/shadows-of-symmetry#cómo-citarlo">Cómo citarlo</a>
+</div>
+<nav class="toc" aria-label="Índice"><strong>Índice</strong><ul><li><a href="#sec:intro">1. Introducción</a></li><li><a href="#sec:antecedentes">2. Antecedentes</a></li><li><a href="#sec:marco">3. Marco: cuatro maneras de producir una sombra</a></li><li><a href="#sec:resultados">4. Resultados</a></li><li><a href="#sec:discusion">5. Discusión y limitaciones</a></li><li><a href="#sec:conclusiones">6. Conclusiones y trabajo futuro</a></li><li><a href="#declaración-de-uso-de-ia">Declaración de uso de IA</a></li><li><a href="#referencias">Referencias</a></li></ul></nav>
+<p></p>
+<section class="resumen"><h2 id="resumen">Resumen</h2><p>Una simetría discreta en $n$ dimensiones puede ser la sombra de una simetría continua en $n+1$. Este trabajo reúne en un solo marco cuatro operaciones que producen esa sombra: la proyección (una onda es la sombra lateral de una hélice, y su período discreto viene de una simetría de tornillo continua), el corte (una cadena cuasiperiódica es un corte de la red cuadrada con pendiente irracional, la versión más simple del método que explica los mosaicos de Penrose y los cuasicristales), la sección (un mapa discreto es la sección de Poincaré de un flujo continuo) y la inclusión de grupos (un reflejo en el plano es un giro en el espacio). Con cálculos reproducibles se muestra que la cadena de pendiente $1/\varphi$ coincide con la palabra de Fibonacci, tiene exactamente $n+1$ subpalabras de largo $n$ y nunca repite su patrón, mientras que la de pendiente $3/5$ coincide con ella en sus primeros 16 pasos y se repite cada 8. Se discuten la quiralidad, la paridad, el aliasing como sombra que pierde información, y la pregunta de Kaluza–Klein: si subir una dimensión para volver continua una simetría trae consigo una cantidad conservada.</p></section>
+<section class="resumen" lang="en"><h2 id="abstract">Abstract</h2><p>A discrete symmetry in $n$ dimensions can be the shadow of a continuous symmetry in $n+1$. This paper brings into one framework four operations that cast such a shadow: projection (a wave is the side shadow of a helix, and its discrete period comes from a continuous screw symmetry), slicing (a quasiperiodic chain is a slice of the square lattice with irrational slope, the simplest version of the method that explains Penrose tilings and quasicrystals), sections (a discrete map is the Poincaré section of a continuous flow) and group inclusion (a reflection in the plane is a rotation in space). Reproducible calculations show that the chain with slope $1/\varphi$ coincides with the Fibonacci word, has exactly $n+1$ subwords of length $n$ and never repeats, while the chain with slope $3/5$ agrees with it for its first 16 steps and repeats every 8. Chirality, parity, aliasing as a shadow that loses information, and the Kaluza–Klein question, whether lifting a symmetry to one more dimension brings a conserved quantity with it, are discussed.</p></section>
+<p class="clave"><strong>Palabras clave:</strong> simetría; corte y proyección; cuasicristales; palabras sturmianas; quiralidad; teorema de Noether.</p>
+<p class="clave" lang="en"><strong>Keywords:</strong> symmetry; cut and project; quasicrystals; Sturmian words; chirality; Noether's theorem.</p>
+<h2 id="sec:intro">1. Introducción</h2>
+<p>La idea de este trabajo se puede decir en una oración: <em>una simetría discreta en $n$ dimensiones puede ser la sombra de una simetría continua en $n+1$</em>. Lo que se ve a saltos, como una onda que se repite cada tanto, una cadena que alterna patrones o una figura que solo coincide con su reflejo si se la da vuelta, puede ser la huella de algo suave en un espacio más grande.</p>
+<p>La idea no pertenece a un solo campo. Aparece en el análisis de Fourier, en cristalografía, en sistemas dinámicos, en física de partículas y en la geometría de los reflejos. El aporte de este trabajo no es un teorema nuevo sino un mapa: mostrar en un solo lugar que una misma operación conceptual organiza resultados conocidos de esas áreas, y calcular con ejemplos reproducibles sus propiedades principales. La sección <a href="#sec:antecedentes">2</a> define simetría y resume la historia de cada caso. La sección <a href="#sec:marco">3</a> formula las cuatro operaciones que producen una sombra. La sección <a href="#sec:resultados">4</a> calcula los ejemplos. La sección <a href="#sec:discusion">5</a> discute cuándo la sombra conserva la información, cuándo no, y la pregunta de Kaluza–Klein.</p>
+<h2 id="sec:antecedentes">2. Antecedentes</h2>
+<h3 id="qué-es-una-simetría">2.1. Qué es una simetría</h3>
+<p>En el programa de Erlangen, Felix Klein propuso que cada geometría se define por un grupo de transformaciones y que estudiarla es estudiar lo que esas transformaciones no cambian (Klein <a href="#ref-klein1893">1893</a>). Una simetría de un objeto es una transformación que lo deja igual, y las simetrías de un objeto forman un grupo. El grupo puede ser <em>continuo</em>, como los giros de cualquier ángulo de una circunferencia, o <em>discreto</em>, como los giros de $90^\circ$ de un cuadrado o las traslaciones enteras de una red. Weyl (<a href="#ref-weyl1952">1952</a>) escribió la introducción clásica al tema, de los frisos griegos a los cristales. En física, Noether (<a href="#ref-noether1918">1971</a>) demostró que a cada simetría continua de las leyes le corresponde una cantidad conservada: energía, momento, momento angular. Las simetrías discretas no dan cantidades conservadas de esa manera.</p>
+<h3 id="hélices-y-ondas">2.2. Hélices y ondas</h3>
+<p>La hélice es una de las formas más comunes en biología, y su sombra fue decisiva en el descubrimiento de la estructura del ADN. Cochran et al. (<a href="#ref-cochran1952">1952</a>) calcularon cómo difracta los rayos X una hélice de átomos: el patrón tiene forma de X. Esa X estaba en la fotografía de difracción del ADN de Franklin y Gosling (<a href="#ref-franklin1953">1953</a>), publicada junto con el modelo de doble hélice de Watson y Crick (<a href="#ref-watson1953">1953</a>). Pauling et al. (<a href="#ref-pauling1951">1951</a>) había propuesto la hélice $\alpha$ de las proteínas, con 3,6 aminoácidos por vuelta: una simetría de tornillo continua realizada de forma discreta, porque las unidades vienen de a una.</p>
+<h3 id="cristales-y-cuasicristales">2.3. Cristales y cuasicristales</h3>
+<p>Un cristal periódico solo puede tener ejes de giro de orden 1, 2, 3, 4 o 6: la simetría de orden 5 es incompatible con la periodicidad. Shechtman et al. (<a href="#ref-shechtman1984">1984</a>) observaron en una aleación de aluminio y manganeso un patrón de difracción con puntos nítidos y simetría icosaédrica, imposible para un cristal periódico, y Levine y Steinhardt (<a href="#ref-levine1984">1984</a>) acuñaron el término <em>cuasicristal</em>. Bindi et al. (<a href="#ref-bindi2009">2009</a>) encontraron un cuasicristal natural en una muestra de origen meteorítico, una búsqueda que Steinhardt (<a href="#ref-steinhardt2019">2019</a>) contó en un libro.</p>
+<p>Antes, la matemática ya tenía ejemplos de orden sin período. Wang (<a href="#ref-wang1961">1961</a>) preguntó si todo conjunto de baldosas que cubre el plano lo hace también periódicamente; Berger (<a href="#ref-berger1966">1966</a>) mostró que no y que el problema es indecidible, con un conjunto enorme de baldosas, y Robinson (<a href="#ref-robinson1971">1971</a>) lo redujo a seis. Penrose encontró conjuntos de dos baldosas, popularizados por Gardner (<a href="#ref-gardner1977">1977</a>), y Smith et al. (<a href="#ref-smith2024">2024</a>) encontraron en 2023 una sola pieza que solo cubre el plano de manera no periódica. de Bruijn (<a href="#ref-debruijn1981">1981</a>) mostró que los mosaicos de Penrose son cortes de la red periódica de cinco dimensiones proyectados sobre un plano con inclinación irracional, y Kramer y Neri (<a href="#ref-kramer1984">1984</a>) y Duneau y Katz (<a href="#ref-duneau1985">1985</a>) generalizaron el método de corte y proyección a la cristalografía. Merlin et al. (<a href="#ref-merlin1985">1985</a>) crecieron superredes de semiconductores siguiendo la secuencia de Fibonacci: un cuasicristal unidimensional artificial.</p>
+<h3 id="palabras-frecuencias-y-aproximaciones">2.4. Palabras, frecuencias y aproximaciones</h3>
+<p>Morse y Hedlund (<a href="#ref-morse1940">1940</a>) desarrollaron la teoría de las <em>palabras sturmianas</em>, que son las codificaciones de rectas de pendiente irracional; Lothaire (<a href="#ref-lothaire2002">2002</a>) les dedica un capítulo. Weyl (<a href="#ref-weyl1916">1916</a>) demostró que una recta de pendiente irracional enrollada en un toro se equidistribuye, y Bohr (<a href="#ref-bohr1925">1925</a>) desarrolló la teoría de las funciones casi periódicas, el marco analítico del fenómeno. Hurwitz (<a href="#ref-hurwitz1891">1891</a>) demostró que el número de oro es el irracional peor aproximable por fracciones; Douady y Couder (<a href="#ref-douady1992">1992</a>) reprodujeron con un experimento físico la filotaxis, donde un ángulo relacionado con $\varphi$ minimiza superposiciones.</p>
+<h3 id="secciones-muestreo-y-reflejos">2.5. Secciones, muestreo y reflejos</h3>
+<p>Poincaré (<a href="#ref-poincare1892">1892</a>) introdujo la sección que lleva su nombre: registrar solo los cruces de una trayectoria continua con una superficie fija convierte un flujo en un mapa discreto. Registrar un giro a intervalos fijos es otra sección, y Nyquist (<a href="#ref-nyquist1928">1928</a>) y Shannon (<a href="#ref-shannon1949">1949</a>) establecieron cuándo el muestreo permite reconstruir la señal.</p>
+<p>Un reflejo es la simetría discreta por excelencia: no hay medio reflejo. Möbius (<a href="#ref-mobius1827">1827</a>) señaló que dos figuras planas especulares no se pueden superponer moviéndolas en el plano, pero sí girando una por la tercera dimensión. Lee y Yang (<a href="#ref-lee1956">1956</a>) notaron que nadie había comprobado que la interacción débil respetara la paridad, y Wu et al. (<a href="#ref-wu1957">1957</a>) mostraron con núcleos de cobalto 60 que no la respeta. Gardner (<a href="#ref-gardner1964">1964</a>) contó esa historia. Klein (<a href="#ref-klein1926">1926</a>) mostró que, si el espacio-tiempo tiene una quinta dimensión enrollada, como en la teoría de Kaluza de 1921 (Kaluza <a href="#ref-kaluza1921">2018</a>), el momento en esa dimensión se comporta como la carga eléctrica.</p>
+<h2 id="sec:marco">3. Marco: cuatro maneras de producir una sombra</h2>
+<p>Las longitudes se miden en unidades arbitrarias $\ell$ (el paso de la red en el caso del corte) y los ángulos en radianes. Todas las cadenas y conteos son adimensionales.</p>
+<h3 id="proyección-la-hélice">3.1. Proyección: la hélice</h3>
+<p>La hélice de radio $r$ y avance $c$ por radián, ambos en unidades de $\ell$, es</p>
+<div class="ecuacion">\begin{equation}\label{eq:helice}
+\mathbf h(\theta) = (r\cos\theta,\ r\sin\theta,\ c\,\theta), \qquad \theta \in \mathbb R .
+\end{equation}</div>
+<p>Girarla un ángulo $\alpha$ alrededor del eje $z$ lleva el punto de parámetro $\theta$ al de parámetro $\theta + \alpha$ corrido $-c\alpha$ en $z$: girar $\alpha$ y avanzar $c\alpha$ la deja igual, para cualquier $\alpha$. Es la <em>simetría de tornillo</em>, continua. Su sombra sobre el plano $xz$ es</p>
+<div class="ecuacion">\begin{equation}\label{eq:sombra}
+x(z) = r\cos\!\left(\frac{z}{c} + \alpha\right),
+\end{equation}</div>
+<p>donde $z/c$ es adimensional, como corresponde al argumento de un coseno, y $x$ tiene las unidades de $r$. Un giro en tres dimensiones es una traslación de la sombra, y la sombra solo coincide consigo misma si se la corre un múltiplo de $2\pi c$: su simetría es discreta. La fórmula de Euler, $e^{i\theta} = \cos\theta + i\sin\theta$, dice lo mismo en el plano complejo, y el análisis de Fourier extiende la idea a toda función periódica como suma de sombras de giros uniformes.</p>
+<h3 id="corte-la-red-cuadrada">3.2. Corte: la red cuadrada</h3>
+<p>Se toma la red $\mathbb Z^2$ de puntos $(m, n)$ y una recta por el origen de ángulo $\alpha$ y pendiente $\tan\alpha$. Cada punto tiene una coordenada a lo largo de la recta y otra perpendicular,</p>
+<div class="ecuacion">\begin{equation}\label{eq:coordenadas}
+s = m\cos\alpha + n\sin\alpha, \qquad u = -m\sin\alpha + n\cos\alpha .
+\end{equation}</div>
+<p>Se aceptan los puntos con $u$ en una ventana $[u_0, u_0 + w)$ de ancho</p>
+<div class="ecuacion">\begin{equation}\label{eq:ventana}
+w = \cos\alpha + \sin\alpha ,
+\end{equation}</div>
+<p>que es la sombra del cuadrado unidad sobre la dirección perpendicular. Con esa ventana, entre dos puntos aceptados consecutivos el paso es siempre $(1, 0)$ o $(0, 1)$: proyectados sobre la recta, miden $L = \cos\alpha$ y $S = \sin\alpha$. El resultado es una cadena de letras L y S. Como el camino escalonado sigue a la recta,</p>
+<div class="ecuacion">\begin{equation}\label{eq:frecuencias}
+\frac{\#S}{\#L} \to \tan\alpha .
+\end{equation}</div>
+<p>Si la pendiente es racional, $p/q$ en términos mínimos, la recta vuelve a pasar por un punto de la red después de $q$ pasos L y $p$ pasos S, y la cadena es periódica con período</p>
+<div class="ecuacion">\begin{equation}\label{eq:periodo}
+P = p + q .
+\end{equation}</div>
+<p>Si es irracional, nunca vuelve, y la cadena es cuasiperiódica: ordenada pero sin período. Sus dos propiedades características son la complejidad mínima entre las no periódicas,</p>
+<div class="ecuacion">\begin{equation}\label{eq:complejidad}
+\mathcal C(n) = n + 1 ,
+\end{equation}</div>
+<p>donde $\mathcal C(n)$ es la cantidad de subpalabras distintas de largo $n$, y el <em>balance</em>: en dos tramos del mismo largo, la cantidad de S difiere a lo sumo en uno (Morse y Hedlund <a href="#ref-morse1940">1940</a>; Lothaire <a href="#ref-lothaire2002">2002</a>).</p>
+<h3 id="fibonacci-y-el-número-de-oro">3.3. Fibonacci y el número de oro</h3>
+<p>Para la pendiente $1/\varphi$, con $\varphi = (1+\sqrt5)/2$, la cadena se genera también por la sustitución</p>
+<div class="ecuacion">\begin{equation}\label{eq:sustitucion}
+\sigma:\ \mathrm L \mapsto \mathrm{LS}, \quad \mathrm S \mapsto \mathrm L, \qquad |\sigma^k(\mathrm L)| = F_{k+2},
+\end{equation}</div>
+<p>donde $F_j$ son los números de Fibonacci ($F_1 = F_2 = 1$). La fracción continua de $1/\varphi$ tiene todos sus términos iguales a 1, y sus convergentes son cocientes de Fibonacci: $1/2$, $2/3$, $3/5$, $5/8, \dots$ Cada convergente $F_k/F_{k+1}$ da una cadena periódica, de período $F_{k+2}$ por la ecuación \eqref{eq:periodo}, que coincide con la de $1/\varphi$ en un tramo inicial cada vez más largo. Por el teorema de Hurwitz (<a href="#ref-hurwitz1891">1891</a>), para todo irracional $x$ hay infinitas fracciones con</p>
+<div class="ecuacion">\begin{equation}\label{eq:hurwitz}
+\left| x - \frac{p}{q} \right| &lt; \frac{1}{\sqrt5\, q^2},
+\end{equation}</div>
+<p>y la constante $\sqrt5$ no se puede mejorar justamente por $\varphi$: es el número peor aproximable.</p>
+<h3 id="sección-la-rotación-del-círculo">3.4. Sección: la rotación del círculo</h3>
+<p>La recta de pendiente $\tan\alpha$ enrollada en el toro, registrada en sus cruces con un lado, da la rotación del círculo</p>
+<div class="ecuacion">\begin{equation}\label{eq:rotacion}
+x_{k+1} = x_k + a \pmod 1 ,
+\end{equation}</div>
+<p>con $a$ relacionado con la pendiente. Si $a$ es racional, cada punto vuelve; si es irracional, la órbita es densa y equidistribuida (Weyl <a href="#ref-weyl1916">1916</a>), y anotar si $x_k$ cae en $[0, a)$ o en $[a, 1)$ da una palabra sturmiana. Corte y proyección, flujo en el toro y rotación del círculo son el mismo objeto. Un giro continuo de frecuencia $f$ registrado a una frecuencia de muestreo $f_{\mathrm s}$ es otra sección, y aparenta una frecuencia</p>
+<div class="ecuacion">\begin{equation}\label{eq:alias}
+f_{\mathrm a} = f - k f_{\mathrm s}, \qquad k = \operatorname{round}(f/f_{\mathrm s}),
+\end{equation}</div>
+<p>en hercios, igual a $f$ solo si $f_{\mathrm s} &gt; 2f$ (Nyquist <a href="#ref-nyquist1928">1928</a>; Shannon <a href="#ref-shannon1949">1949</a>).</p>
+<h3 id="inclusión-de-grupos-el-reflejo">3.5. Inclusión de grupos: el reflejo</h3>
+<p>Un reflejo del plano, $(x, y) \mapsto (-x, y)$, tiene determinante $-1$: está en $O(2)$ pero no en el grupo de giros $SO(2)$. En tres dimensiones, el giro de ángulo $\theta$ alrededor del eje $y$ lleva un punto del plano $z = 0$ a</p>
+<div class="ecuacion">\begin{equation}\label{eq:giro}
+(x, y, 0) \mapsto (x\cos\theta,\ y,\ x\sin\theta),
+\end{equation}</div>
+<p>y para $\theta = \pi$ da $(-x, y, 0)$: el reflejo. Es un elemento de $SO(3)$, con determinante $+1$. Los reflejos de $n$ dimensiones son restricciones de giros de $n+1$, y la simetría discreta del reflejo es la sombra de la continua del giro, que se puede hacer de a poco pasando por $\theta = \pi/2$, donde la figura se ve de canto.</p>
+<h2 id="sec:resultados">4. Resultados</h2>
+<p>Todas las cifras salen de <code>paper/figuras/generar.js</code>.</p>
+<h3 id="la-hélice">4.1. La hélice</h3>
+<p>Con $r = 1\,\ell$ y $c = 0{,}25\,\ell$ por radián, el período de la sombra es $2\pi c = 1{,}571\,\ell$, y un giro de $90^\circ$ corre la onda $c\pi/2 = 0{,}393\,\ell$, un cuarto de período (figura <a href="#fig:helice">1</a>). La ecuación \eqref{eq:sombra} reproduce los puntos de la sombra calculados por rotación con error nulo a la precisión de la máquina.</p>
+<figure id="fig:helice"><img src="paper/figuras/helice.svg" alt="Sombra lateral de una hélice de radio 1 y avance $c = 0{,}25$ por radián, sin girar y girada un cuarto de vuelta. Un giro de la hélice es una traslación de la onda; la onda solo coincide consigo misma si se la corre $2\pi c$." loading="lazy"><figcaption><strong>Figura 1.</strong> Sombra lateral de una hélice de radio 1 y avance $c = 0{,}25$ por radián, sin girar y girada un cuarto de vuelta. Un giro de la hélice es una traslación de la onda; la onda solo coincide consigo misma si se la corre $2\pi c$.</figcaption></figure>
+<h3 id="corte-y-proyección">4.2. Corte y proyección</h3>
+<p>La figura <a href="#fig:corte">2</a> muestra la construcción para la pendiente $1/\varphi$. La tabla <a href="#tab:cadenas">1</a> resume las cadenas obtenidas para cinco pendientes, con unos 400 pasos. El cociente $\#L/\#S$ se acerca a la inversa de la pendiente, como pide la ecuación \eqref{eq:frecuencias}, y las pendientes racionales dan los períodos de la ecuación \eqref{eq:periodo}: 3 para $1/2$, 5 para $2/3$, 8 para $3/5$. Para las irracionales no se encuentra ningún período de hasta 100 pasos. Con 3000 pasos, el cociente vale 1,618 para $1/\varphi$ y 2,413 para $\sqrt2 - 1$, frente a $\varphi = 1{,}618$ y $1 + \sqrt2 = 2{,}414$ (figura <a href="#fig:frecuencias">3</a>).</p>
+<figure id="fig:corte"><img src="paper/figuras/corte.svg" alt="Corte y proyección de la red cuadrada con pendiente $1/\varphi$: la recta, los bordes de la ventana \eqref{eq:ventana} y el camino escalonado de puntos aceptados. Cada paso horizontal es una L y cada paso vertical, una S." loading="lazy"><figcaption><strong>Figura 2.</strong> Corte y proyección de la red cuadrada con pendiente $1/\varphi$: la recta, los bordes de la ventana \eqref{eq:ventana} y el camino escalonado de puntos aceptados. Cada paso horizontal es una L y cada paso vertical, una S.</figcaption></figure>
+<figure class="tabla" id="tab:cadenas"><figcaption><strong>Tabla 1.</strong> Cadenas de corte y proyección para cinco pendientes.</figcaption><div class="desliza"><table><thead><tr><th>Pendiente</th><th>L</th><th>S</th><th>L/S</th><th>Período</th><th>Comienzo</th></tr></thead><tbody><tr><td>$1/\varphi \approx 0{,}618$</td><td>247</td><td>153</td><td>1,614</td><td>ninguno $\le 100$</td><td><code>LSLSLLSLLSLSLLSLSLL</code></td></tr><tr><td>$\sqrt2 - 1 \approx 0{,}414$</td><td>283</td><td>117</td><td>2,419</td><td>ninguno $\le 100$</td><td><code>LSLLLSLLSLLSLLLSLLS</code></td></tr><tr><td>$1/2$</td><td>267</td><td>134</td><td>1,993</td><td>3</td><td><code>LSLLSLLSLLSLLSLLSLL</code></td></tr><tr><td>$2/3$</td><td>240</td><td>160</td><td>1,500</td><td>5</td><td><code>LSLSLLSLSLLSLSLLSLS</code></td></tr><tr><td>$3/5$</td><td>250</td><td>150</td><td>1,667</td><td>8</td><td><code>LSLSLLSLLSLSLLSLLSL</code></td></tr></tbody></table></div></figure>
+<figure id="fig:frecuencias"><img src="paper/figuras/frecuencias.svg" alt="Cociente entre la cantidad de pasos largos y cortos en función del largo de la cadena, para dos pendientes irracionales, y sus límites $\varphi$ y $1 + \sqrt2$." loading="lazy"><figcaption><strong>Figura 3.</strong> Cociente entre la cantidad de pasos largos y cortos en función del largo de la cadena, para dos pendientes irracionales, y sus límites $\varphi$ y $1 + \sqrt2$.</figcaption></figure>
+<h3 id="la-palabra-de-fibonacci">4.3. La palabra de Fibonacci</h3>
+<p>La cadena de pendiente $1/\varphi$ es un tramo de la palabra generada por la sustitución \eqref{eq:sustitucion}, que empieza en la posición 126; los largos de $\sigma^k(\mathrm L)$ son 1, 2, 3, 5, 8, 13, 21, 34, 55 y 89. En los primeros 5000 caracteres de la palabra no aparecen ni SS ni LLL, la cantidad de subpalabras distintas de largo $n = 1, \dots, 10$ es exactamente $n + 1$, y el desbalance entre tramos del mismo largo, hasta largo 50, nunca supera 1. La cadena de $3/5$, una convergente de $1/\varphi$, coincide con la de $1/\varphi$ en sus primeros 16 pasos y después se repite cada 8. Su complejidad crece como $n + 1$ hasta $n = 7$ y se queda en 8 (figura <a href="#fig:complejidad">4</a>): es la firma de una cadena periódica.</p>
+<figure id="fig:complejidad"><img src="paper/figuras/complejidad.svg" alt="Cantidad de subpalabras distintas de largo $n$ para la palabra de Fibonacci, la cadena periódica de pendiente $3/5$ y una cadena al azar con la misma proporción de letras. La curva al azar se aplana por el largo finito de la muestra, 5000 letras." loading="lazy"><figcaption><strong>Figura 4.</strong> Cantidad de subpalabras distintas de largo $n$ para la palabra de Fibonacci, la cadena periódica de pendiente $3/5$ y una cadena al azar con la misma proporción de letras. La curva al azar se aplana por el largo finito de la muestra, 5000 letras.</figcaption></figure>
+<h3 id="muestreo-y-reflejo">4.4. Muestreo y reflejo</h3>
+<p>Una rueda de 12 rayos filmada a 24 cuadros por segundo muestra el aliasing de la ecuación \eqref{eq:alias}: a 1,9 vueltas por segundo los rayos pasan a 22,8 Hz y la rueda aparenta girar hacia atrás a 0,1 vueltas por segundo; a 2 vueltas por segundo parece quieta; a 2,1, avanza lento. Aplicando la ecuación \eqref{eq:giro} con $\theta = \pi$ a los vértices de una letra F se obtiene su imagen especular, con la coordenada fuera del plano de vuelta en cero.</p>
+<h2 id="sec:discusion">5. Discusión y limitaciones</h2>
+<h3 id="cuándo-la-sombra-conserva-la-información">5.1. Cuándo la sombra conserva la información</h3>
+<p>La hélice puede recuperarse de su sombra si se sabe que es una hélice, y la pendiente de la red, de las frecuencias de la cadena. Pero un muestreo demasiado lento pierde información de manera irreversible: la rueda de la sección anterior parece girar hacia atrás. La pregunta precisa es si la proyección es inyectiva sobre el conjunto de objetos relevante. Y no toda simetría discreta proviene de manera natural de una continua: el intercambio de partículas idénticas o la inversión temporal son discretas sin una dimensión extra obvia que las vuelva continuas.</p>
+<h3 id="quiralidad-y-paridad">5.2. Quiralidad y paridad</h3>
+<p>La ecuación \eqref{eq:giro} dice que dos figuras planas especulares se superponen con un giro por la tercera dimensión, y por la misma razón dos manos se superpondrían con un giro en una cuarta (Möbius <a href="#ref-mobius1827">1827</a>). En el mundo físico esa dimensión no está disponible: ninguna reacción química común convierte una molécula quiral en su imagen especular, y la interacción débil distingue izquierda de derecha (Lee y Yang <a href="#ref-lee1956">1956</a>; Wu et al. <a href="#ref-wu1957">1957</a>). La paridad es una simetría discreta que, en nuestro espacio, no es la sombra de nada.</p>
+<h3 id="la-pregunta-de-kaluza-klein">5.3. La pregunta de Kaluza–Klein</h3>
+<p>La idea deja una pregunta más ambiciosa: si se sube una dimensión para volver continua una simetría discreta, ¿aparece una cantidad conservada, como pide el teorema de Noether? Hay un caso histórico en que sí. En la teoría de Kaluza y Klein, el espacio-tiempo tiene una quinta dimensión enrollada en un círculo de radio $R$. La traslación a lo largo de ese círculo es una simetría continua, y su cantidad conservada es el momento en esa dimensión, que por la periodicidad de la función de onda está cuantizado,</p>
+<div class="ecuacion">\begin{equation}\label{eq:kk}
+p_5 = \frac{n\hbar}{R}, \qquad n \in \mathbb Z ,
+\end{equation}</div>
+<p>con unidades de $\mathrm{J\,s/m} = \mathrm{kg\,m\,s^{-1}}$. Klein (<a href="#ref-klein1926">1926</a>) mostró que ese momento se comporta como la carga eléctrica: la cuantización de la carga en cuatro dimensiones sería la sombra de una simetría continua en cinco. El ejemplo no prueba que toda simetría discreta tenga una cantidad conservada escondida, pero muestra que la pregunta no es ingenua.</p>
+<h3 id="limitaciones">5.4. Limitaciones</h3>
+<ul><li>Las ideas son conocidas en matemática y física; el aporte es la síntesis y los cálculos de ejemplo.</li><li>El corte y proyección se calcula en el caso más simple, de dos dimensiones a una. Los mosaicos de Penrose salen de cinco a dos.</li><li>La búsqueda de períodos llega hasta 100 pasos sobre unos 400: una pendiente racional de denominador grande parecería no periódica.</li><li>La complejidad y el balance de la palabra de Fibonacci se comprueban en un tramo finito; los resultados generales están demostrados en la literatura citada.</li></ul>
+<h2 id="sec:conclusiones">6. Conclusiones y trabajo futuro</h2>
+<p>Cuatro operaciones muy distintas, proyectar, cortar, seccionar e incluir un grupo en otro, muestran la misma estructura: una simetría discreta en $n$ dimensiones como sombra de una continua en $n+1$. La onda es la sombra de un giro, como sabían Euler y Fourier y como confirmó la difracción de la hélice del ADN. La cadena de Fibonacci es un corte de la red cuadrada, el caso más simple del método que explica los mosaicos de Penrose y los cuasicristales. Un mapa discreto es la sección de un flujo. El reflejo es un giro por una dimensión extra. El trabajo futuro tiene dos partes: llevar el corte y proyección de cinco dimensiones a dos para obtener un mosaico de Penrose, y explorar en qué casos la dimensión extra trae consigo una cantidad conservada, como en la teoría de Kaluza–Klein.</p>
+<h2 id="declaración-de-uso-de-ia">Declaración de uso de IA</h2>
+<p>Este trabajo se redactó con asistencia de Claude (Anthropic), un modelo de lenguaje, a partir de una guía previa del autor. El modelo propuso la estructura, la redacción, los chequeos de unidades y el script que genera las figuras; el alcance y las decisiones son del autor, que es responsable del contenido. Las referencias se verificaron contra Crossref, Open Library y las páginas citadas con <code>paper/verificar_bib.py</code>, y todas las cifras de la sección <a href="#sec:resultados">4</a> salen de <code>paper/figuras/generar.js</code>.</p>
+<h2 id="referencias">Referencias</h2><ol class="refs"><li id="ref-berger1966">Berger, R. (1966). The undecidability of the domino problem. <i>Memoirs of the American Mathematical Society</i>(66). <a href="https://doi.org/10.1090/memo/0066">https://doi.org/10.1090/memo/0066</a></li><li id="ref-bindi2009">Bindi, L., Steinhardt, P. J., Yao, N. y Lu, P. J. (2009). Natural quasicrystals. <i>Science</i>, <i>324</i>(5932), 1306–1309. <a href="https://doi.org/10.1126/science.1170827">https://doi.org/10.1126/science.1170827</a></li><li id="ref-bohr1925">Bohr, H. (1925). Zur Theorie der fastperiodischen Funktionen: I. Eine Verallgemeinerung der Theorie der Fourierreihen. <i>Acta Mathematica</i>, <i>45</i>, 29–127. <a href="https://doi.org/10.1007/BF02395468">https://doi.org/10.1007/BF02395468</a></li><li id="ref-cochran1952">Cochran, W., Crick, F. H. C. y Vand, V. (1952). The structure of synthetic polypeptides. I. The transform of atoms on a helix. <i>Acta Crystallographica</i>, <i>5</i>(5), 581–586. <a href="https://doi.org/10.1107/S0365110X52001635">https://doi.org/10.1107/S0365110X52001635</a></li><li id="ref-debruijn1981">de Bruijn, N. G. (1981). Algebraic theory of Penrose&#x27;s non-periodic tilings of the plane. I. <i>Indagationes Mathematicae (Proceedings)</i>, <i>84</i>(1), 39–52. <a href="https://doi.org/10.1016/1385-7258(81)90016-0">https://doi.org/10.1016/1385-7258(81)90016-0</a></li><li id="ref-douady1992">Douady, S. y Couder, Y. (1992). Phyllotaxis as a physical self-organized growth process. <i>Physical Review Letters</i>, <i>68</i>(13), 2098–2101. <a href="https://doi.org/10.1103/PhysRevLett.68.2098">https://doi.org/10.1103/PhysRevLett.68.2098</a></li><li id="ref-duneau1985">Duneau, M. y Katz, A. (1985). Quasiperiodic patterns. <i>Physical Review Letters</i>, <i>54</i>(25), 2688–2691. <a href="https://doi.org/10.1103/PhysRevLett.54.2688">https://doi.org/10.1103/PhysRevLett.54.2688</a></li><li id="ref-franklin1953">Franklin, R. E. y Gosling, R. G. (1953). Molecular configuration in sodium thymonucleate. <i>Nature</i>, <i>171</i>(4356), 740–741. <a href="https://doi.org/10.1038/171740a0">https://doi.org/10.1038/171740a0</a></li><li id="ref-gardner1964">Gardner, M. (1964). <i>The Ambidextrous Universe</i>. Basic Books. <a href="https://openlibrary.org/works/OL459996W">https://openlibrary.org/works/OL459996W</a></li><li id="ref-gardner1977">Gardner, M. (1977). Mathematical games: Extraordinary nonperiodic tiling that enriches the theory of tiles. <i>Scientific American</i>, <i>236</i>(1), 110–121. <a href="https://doi.org/10.1038/scientificamerican0177-110">https://doi.org/10.1038/scientificamerican0177-110</a></li><li id="ref-hurwitz1891">Hurwitz, A. (1891). Ueber die angenäherte Darstellung der Irrationalzahlen durch rationale Brüche. <i>Mathematische Annalen</i>, <i>39</i>(2), 279–284. <a href="https://doi.org/10.1007/BF01206656">https://doi.org/10.1007/BF01206656</a></li><li id="ref-kaluza1921">Kaluza, T. (2018). On the unification problem in physics. <i>International Journal of Modern Physics D</i>, <i>27</i>(14), 1870001. <a href="https://doi.org/10.1142/S0218271818700017">https://doi.org/10.1142/S0218271818700017</a></li><li id="ref-klein1893">Klein, F. (1893). A comparative review of recent researches in geometry. <i>Bulletin of the American Mathematical Society</i>, <i>2</i>(10), 215–249. <a href="https://doi.org/10.1090/S0002-9904-1893-00147-X">https://doi.org/10.1090/S0002-9904-1893-00147-X</a></li><li id="ref-klein1926">Klein, O. (1926). Quantentheorie und fünfdimensionale Relativitätstheorie. <i>Zeitschrift für Physik</i>, <i>37</i>(12), 895–906. <a href="https://doi.org/10.1007/BF01397481">https://doi.org/10.1007/BF01397481</a></li><li id="ref-kramer1984">Kramer, P. y Neri, R. (1984). On periodic and non-periodic space fillings of $E^m$ obtained by projection. <i>Acta Crystallographica Section A</i>, <i>40</i>(5), 580–587. <a href="https://doi.org/10.1107/S0108767384001203">https://doi.org/10.1107/S0108767384001203</a></li><li id="ref-lee1956">Lee, T. D. y Yang, C. N. (1956). Question of parity conservation in weak interactions. <i>Physical Review</i>, <i>104</i>(1), 254–258. <a href="https://doi.org/10.1103/PhysRev.104.254">https://doi.org/10.1103/PhysRev.104.254</a></li><li id="ref-levine1984">Levine, D. y Steinhardt, P. J. (1984). Quasicrystals: A new class of ordered structures. <i>Physical Review Letters</i>, <i>53</i>(26), 2477–2480. <a href="https://doi.org/10.1103/PhysRevLett.53.2477">https://doi.org/10.1103/PhysRevLett.53.2477</a></li><li id="ref-lothaire2002">Lothaire, M. (2002). <i>Algebraic Combinatorics on Words</i>. Cambridge University Press. <a href="https://doi.org/10.1017/CBO9781107326019">https://doi.org/10.1017/CBO9781107326019</a></li><li id="ref-merlin1985">Merlin, R., Bajema, K., Clarke, R., Juang, F. Y. y Bhattacharya, P. K. (1985). Quasiperiodic GaAs-AlAs heterostructures. <i>Physical Review Letters</i>, <i>55</i>(17), 1768–1770. <a href="https://doi.org/10.1103/PhysRevLett.55.1768">https://doi.org/10.1103/PhysRevLett.55.1768</a></li><li id="ref-morse1940">Morse, M. y Hedlund, G. A. (1940). Symbolic dynamics II. Sturmian trajectories. <i>American Journal of Mathematics</i>, <i>62</i>(1), 1–42. <a href="https://doi.org/10.2307/2371431">https://doi.org/10.2307/2371431</a></li><li id="ref-mobius1827">Möbius, A. F. (1827). <i>Der barycentrische Calcul</i>. J. A. Barth. <a href="https://openlibrary.org/works/OL24182270W">https://openlibrary.org/works/OL24182270W</a></li><li id="ref-noether1918">Noether, E. (1971). Invariant variation problems. <i>Transport Theory and Statistical Physics</i>, <i>1</i>(3), 186–207. <a href="https://doi.org/10.1080/00411457108231446">https://doi.org/10.1080/00411457108231446</a></li><li id="ref-nyquist1928">Nyquist, H. (1928). Certain topics in telegraph transmission theory. <i>Transactions of the American Institute of Electrical Engineers</i>, <i>47</i>(2), 617–644. <a href="https://doi.org/10.1109/T-AIEE.1928.5055024">https://doi.org/10.1109/T-AIEE.1928.5055024</a></li><li id="ref-pauling1951">Pauling, L., Corey, R. B. y Branson, H. R. (1951). The structure of proteins: Two hydrogen-bonded helical configurations of the polypeptide chain. <i>Proceedings of the National Academy of Sciences</i>, <i>37</i>(4), 205–211. <a href="https://doi.org/10.1073/pnas.37.4.205">https://doi.org/10.1073/pnas.37.4.205</a></li><li id="ref-poincare1892">Poincaré, H. (1892). <i>Les méthodes nouvelles de la mécanique céleste</i>. Gauthier-Villars. <a href="https://openlibrary.org/works/OL708904W">https://openlibrary.org/works/OL708904W</a></li><li id="ref-robinson1971">Robinson, R. M. (1971). Undecidability and nonperiodicity for tilings of the plane. <i>Inventiones Mathematicae</i>, <i>12</i>(3), 177–209. <a href="https://doi.org/10.1007/BF01418780">https://doi.org/10.1007/BF01418780</a></li><li id="ref-shannon1949">Shannon, C. E. (1949). Communication in the presence of noise. <i>Proceedings of the IRE</i>, <i>37</i>(1), 10–21. <a href="https://doi.org/10.1109/JRPROC.1949.232969">https://doi.org/10.1109/JRPROC.1949.232969</a></li><li id="ref-shechtman1984">Shechtman, D., Blech, I., Gratias, D. y Cahn, J. W. (1984). Metallic phase with long-range orientational order and no translational symmetry. <i>Physical Review Letters</i>, <i>53</i>(20), 1951–1953. <a href="https://doi.org/10.1103/PhysRevLett.53.1951">https://doi.org/10.1103/PhysRevLett.53.1951</a></li><li id="ref-smith2024">Smith, D., Myers, J. S., Kaplan, C. S. y Goodman-Strauss, C. (2024). An aperiodic monotile. <i>Combinatorial Theory</i>, <i>4</i>(1). <a href="https://doi.org/10.5070/C64163843">https://doi.org/10.5070/C64163843</a></li><li id="ref-steinhardt2019">Steinhardt, P. J. (2019). <i>The Second Kind of Impossible: The Extraordinary Quest for a New Form of Matter</i>. Simon &amp; Schuster. <a href="https://openlibrary.org/works/OL20160974W">https://openlibrary.org/works/OL20160974W</a></li><li id="ref-wang1961">Wang, H. (1961). Proving theorems by pattern recognition – II. <i>Bell System Technical Journal</i>, <i>40</i>(1), 1–41. <a href="https://doi.org/10.1002/j.1538-7305.1961.tb03975.x">https://doi.org/10.1002/j.1538-7305.1961.tb03975.x</a></li><li id="ref-watson1953">Watson, J. D. y Crick, F. H. C. (1953). Molecular structure of nucleic acids: A structure for deoxyribose nucleic acid. <i>Nature</i>, <i>171</i>(4356), 737–738. <a href="https://doi.org/10.1038/171737a0">https://doi.org/10.1038/171737a0</a></li><li id="ref-weyl1916">Weyl, H. (1916). Über die Gleichverteilung von Zahlen mod. Eins. <i>Mathematische Annalen</i>, <i>77</i>(3), 313–352. <a href="https://doi.org/10.1007/BF01475864">https://doi.org/10.1007/BF01475864</a></li><li id="ref-weyl1952">Weyl, H. (1952). <i>Symmetry</i>. Princeton University Press. <a href="https://openlibrary.org/works/OL8018946W">https://openlibrary.org/works/OL8018946W</a></li><li id="ref-wu1957">Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D. y Hudson, R. P. (1957). Experimental test of parity conservation in beta decay. <i>Physical Review</i>, <i>105</i>(4), 1413–1415. <a href="https://doi.org/10.1103/PhysRev.105.1413">https://doi.org/10.1103/PhysRev.105.1413</a></li></ol>
+<footer>
+<p>Texto, figuras y PDF bajo licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>: podés compartirlo y adaptarlo citando al autor. El código que genera las figuras está bajo licencia MIT. Esta página se genera a partir de <code>paper/paper.tex</code>.</p>
+</footer>
+</main>
 </body>
 </html>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13">
+<rect width="640" height="400" fill="#ffffff"/>
+<line x1="125.2" y1="40" x2="125.2" y2="344" stroke="#e3e1db"/>
+<text x="125.2" y="362" text-anchor="middle" fill="#333">2,5</text>
+<line x1="217.2" y1="40" x2="217.2" y2="344" stroke="#e3e1db"/>
+<text x="217.2" y="362" text-anchor="middle" fill="#333">5</text>
+<line x1="309.20000000000005" y1="40" x2="309.20000000000005" y2="344" stroke="#e3e1db"/>
+<text x="309.20000000000005" y="362" text-anchor="middle" fill="#333">7,5</text>
+<line x1="401.2" y1="40" x2="401.2" y2="344" stroke="#e3e1db"/>
+<text x="401.2" y="362" text-anchor="middle" fill="#333">10</text>
+<line x1="493.20000000000005" y1="40" x2="493.20000000000005" y2="344" stroke="#e3e1db"/>
+<text x="493.20000000000005" y="362" text-anchor="middle" fill="#333">12,5</text>
+<line x1="585.2" y1="40" x2="585.2" y2="344" stroke="#e3e1db"/>
+<text x="585.2" y="362" text-anchor="middle" fill="#333">15</text>
+<line x1="70" y1="344" x2="622" y2="344" stroke="#e3e1db"/>
+<text x="62" y="348" text-anchor="end" fill="#333">1</text>
+<line x1="70" y1="268" x2="622" y2="268" stroke="#e3e1db"/>
+<text x="62" y="272" text-anchor="end" fill="#333">10</text>
+<line x1="70" y1="192" x2="622" y2="192" stroke="#e3e1db"/>
+<text x="62" y="196" text-anchor="end" fill="#333">100</text>
+<line x1="70" y1="116" x2="622" y2="116" stroke="#e3e1db"/>
+<text x="62" y="120" text-anchor="end" fill="#333">1000</text>
+<line x1="70" y1="40" x2="622" y2="40" stroke="#e3e1db"/>
+<text x="62" y="44" text-anchor="end" fill="#333">10<tspan baseline-shift="super" font-size="70%">4</tspan></text>
+<rect x="70" y="40" width="552" height="304" fill="none" stroke="#333"/>
+<text x="346" y="386" text-anchor="middle" fill="#111">Largo de la subpalabra, n</text>
+<text transform="translate(18 192) rotate(-90)" text-anchor="middle" fill="#111">Subpalabras distintas</text>
+<clipPath id="area"><rect x="70" y="40" width="552" height="304"/></clipPath><g clip-path="url(#area)">
+<path d="M70.00 321.12 L106.80 298.24 L143.60 275.37 L180.40 252.49 L217.20 229.61 L254.00 206.73 L290.80 183.85 L327.60 161.10 L364.40 138.68 L401.20 118.04 L438.00 100.43 L474.80 86.59 L511.60 77.07 L548.40 70.99 L585.20 67.43 L622.00 65.49" fill="none" stroke="#555555" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M70.00 321.12 L106.80 307.74 L143.60 298.24 L180.40 290.88 L217.20 284.86 L254.00 279.77 L290.80 275.37 L327.60 271.48 L364.40 268.00 L401.20 264.85 L438.00 261.98 L474.80 259.34 L511.60 256.89 L548.40 254.62 L585.20 252.49 L622.00 250.49" fill="none" stroke="#2a55c9" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M70.00 321.12 L106.80 307.74 L143.60 298.24 L180.40 290.88 L217.20 284.86 L254.00 279.77 L290.80 275.37 L327.60 275.37 L364.40 275.37 L401.20 275.37 L438.00 275.37 L474.80 275.37 L511.60 275.37 L548.40 275.37 L585.20 275.37 L622.00 275.37" fill="none" stroke="#c25a00" stroke-width="2.2" stroke-linejoin="round"/>
+</g>
+<line x1="70" y1="24" x2="92" y2="24" stroke="#555555" stroke-width="3"/>
+<text x="98" y="28" fill="#111">Al azar</text>
+<line x1="160.4" y1="24" x2="182.4" y2="24" stroke="#2a55c9" stroke-width="3"/>
+<text x="188.4" y="28" fill="#111">Fibonacci (n + 1)</text>
+<line x1="322.8" y1="24" x2="344.8" y2="24" stroke="#c25a00" stroke-width="3"/>
+<text x="350.8" y="28" fill="#111">Pendiente 3/5 (período 8)</text>
+</svg>
